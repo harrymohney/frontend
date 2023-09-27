@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Header from './components/Header/Header';
+import Main from './components/Main/Main';
+
+import { ProductProvider } from './data/ProductContext';
+import { OrderProvider } from './data/OrderContext';
+import { CartProvider } from './data/CartContext';
+import { CategoryProvider } from './data/CategoryContext';
 
 function App() {
+  const [state, setState] = useState({
+    error: '',
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ProductProvider>
+        <OrderProvider>
+          <CartProvider>
+            <CategoryProvider>
+              <Header />
+              <Main />
+            </CategoryProvider>
+          </CartProvider>
+        </OrderProvider>
+      </ProductProvider>
     </div>
   );
 }
